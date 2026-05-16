@@ -1,44 +1,22 @@
 name: Build SparkQ JAR
-
 on:
   push:
     branches: [ main, master ]
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-
-      - name: Compile new source files
-        run: mvn compile
-
-      - name: Merge original class files from sparkq_modified.jar
-        run: |
-          cd target/classes
-          jar xf ../../sparkq_modified.jar \
-            me/z3dyy/endervault/EnderVaultCommand.class \
-            me/z3dyy/endervault/UtilityCommand.class \
-            me/z3dyy/endervault/PlayerUtilCommand.class \
-            me/z3dyy/endervault/RecipeCommand.class \
-            me/z3dyy/endervault/SparkQCommand.class
-          cd ../..
-
-      - name: Package JAR
-        run: mvn jar:jar
-
-      - name: Upload JAR as artifact
-        uses: actions/upload-artifact@v4
+      - run: mvn compile
+      - run: cd target/classes && jar xf ../../sparkq_modified.jar me/z3dyy/endervault/EnderVaultCommand.class me/z3dyy/endervault/UtilityCommand.class me/z3dyy/endervault/PlayerUtilCommand.class me/z3dyy/endervault/RecipeCommand.class me/z3dyy/endervault/SparkQCommand.class
+      - run: mvn jar:jar
+      - uses: actions/upload-artifact@v4
         with:
           name: SparkQ-hateffects
           path: target/EnderVault-1.0.0.jar
