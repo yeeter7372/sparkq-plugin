@@ -1,0 +1,71 @@
+name: SparkQ
+version: 1.0.0
+main: me.z3dyy.endervault.EnderVault
+api-version: "1.21"
+author: Quentix
+description: Enhances server performance and player quality-of-life with lightweight utility features.
+
+commands:
+  endervauit:
+    description: Enchants held item based on vault level.
+    usage: /endervauit <1-5|g|s>
+  sparkq:
+    description: SparkQ info and help.
+    usage: /sparkq
+  heal:
+    description: Heals the player to full health and hunger.
+    usage: /heal
+    permission: sparkq.heal
+  feed:
+    description: Fills the player's hunger bar.
+    usage: /feed
+    permission: sparkq.feed
+  repair:
+    description: Repairs the item currently held.
+    usage: /repair
+    permission: sparkq.repair
+  hat:
+    description: Places the held item on your head.
+    usage: /hat
+    permission: sparkq.hat
+  recipe:
+    description: View the crafting recipe for any item.
+    usage: /recipe <item>
+  ping:
+    description: Check your connection latency.
+    usage: /ping
+  iteminfo:
+    description: Shows info about the item you are holding.
+    usage: /iteminfo
+  coords:
+    description: Displays your current coordinates.
+    usage: /coords
+  compass:
+    description: Shows the direction you are facing.
+    usage: /compass
+  playtime:
+    description: Shows how long you have played on the server.
+    usage: /playtime
+  clearinv:
+    description: Clears your own inventory.
+    usage: /clearinv
+  nightvision:
+    description: Toggles night vision effect.
+    usage: /nightvision
+  suicide:
+    description: Kills your character instantly.
+    usage: /suicide
+
+permissions:
+  sparkq.heal:
+    description: Allows use of /heal
+    default: op
+  sparkq.feed:
+    description: Allows use of /feed
+    default: op
+  sparkq.repair:
+    description: Allows use of /repair
+    default: op
+  sparkq.hat:
+    description: Allows use of /hat
+    default: true
