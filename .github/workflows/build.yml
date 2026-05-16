@@ -13,9 +13,24 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-      - run: mvn compile
-      - run: cd target/classes && jar xf ../../sparkq_modified.jar me/z3dyy/endervault/EnderVaultCommand.class me/z3dyy/endervault/UtilityCommand.class me/z3dyy/endervault/PlayerUtilCommand.class me/z3dyy/endervault/RecipeCommand.class me/z3dyy/endervault/SparkQCommand.class
-      - run: mvn jar:jar
+      - name: Extract original classes for compilation classpath
+        run: |
+          mkdir -p original-classes
+          cd original-classes && jar xf ../sparkq_modified.jar && cd ..
+      - name: Compile new source files
+        run: mvn compile -Dcompile.additional.classpath=original-classes
+      - name: Merge original class files
+        run: |
+          cd target/classes
+          jar xf ../../sparkq_modified.jar \
+            me/z3dyy/endervault/EnderVaultCommand.class \
+            me/z3dyy/endervault/UtilityCommand.class \
+            me/z3dyy/endervault/PlayerUtilCommand.class \
+            me/z3dyy/endervault/RecipeCommand.class \
+            me/z3dyy/endervault/SparkQCommand.class
+          cd ../..
+      - name: Package JAR
+        run: mvn jar:jar
       - uses: actions/upload-artifact@v4
         with:
           name: SparkQ-hateffects
